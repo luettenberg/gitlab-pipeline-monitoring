@@ -6,19 +6,19 @@ const pipelineDuration = new Prometheus.Histogram({
     labelNames: ['project', 'branch'],
     // buckets for response time from 0.1ms to 500ms
     buckets: [0.10, 5, 15, 50, 100, 200, 300, 400, 500]
-  })
+});
   
 const pipelineErrorCounter = new Prometheus.Counter({
     name: 'pipeline_error_counter',
     help: 'Counts pipeline that results in status error',
     labelNames: ['project', 'branch']
-})
+});
 
 const pipelineCounter = new Prometheus.Counter({
     name: 'pipeline_counter',
     help: 'Counts pipelines',
     labelNames: ['project', 'branch', 'status']
-}) 
+});
 
 exports.monitor = function monitor(req, res, next){
     const status = req.body.object_attributes.status;
@@ -38,4 +38,4 @@ exports.monitor = function monitor(req, res, next){
                 .inc();
         }    
     }
-}
+};
